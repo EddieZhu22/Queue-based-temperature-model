@@ -5,7 +5,7 @@ import pandas as pd
 
 
 # making dataframe 
-df = pd.read_csv("data.csv") 
+df = pd.read_csv("data3.csv") 
 tempdiff = []
 t0list = []
 t3list = []
@@ -58,7 +58,48 @@ def findtempcuttoff():
     # Eqn 6: t2 = 1/3t0 + 2/3t3
     t2 = 1/3 * t0final + 2/3 * t3final
     print("t2: " + str(t2))
+    
+def mfactor(t0,t3): 
+    # compare maximum queue (max temperature) with the theoretical m value 2/3. 
+    # Finds both percent difference and absoulute difference between the t2 and m value
+    
+    m = 2/3
+    t2 = t0+m*(t3-t0)
+    print(t2)
+    # First find each day from large list of datapoints
+    # Each day is 1440 minutes long
+    day = 0
+    temperatureArr = []
+    temperatureTimeArr = []
+    for i in np.arange(int(len(df['Minute']))):
+        if(df['Minute'][i] % 1440 == 0):
+            if(day > 0):
+                
+                #find the maximum temperature through maxing the index.
+                tempmaxkey = temperatureArr.index(max(temperatureArr))
+                temperatureTimeArr[tempmaxkey]
+                
+                #normalize per day duration
+                tempmaxtime = temperatureTimeArr[tempmaxkey] - (day-1)*1440
+                
+                #absoulute time difference
+                temptime_absdiff = abs(t2 - tempmaxtime)
+                
+                #relative time difference
+                calculated_m =  (tempmaxtime - t0)/(t3-t0)
+                temptime_reldiff  = (abs(calculated_m - m) / ((calculated_m + m) /2))*100
+                print(temptime_reldiff)
+                temperatureArr.clear()
+                temperatureTimeArr.clear()
+                
+                
+            day += 1
+        else:
+            temperatureArr.append(df['Average of Temperature'][i])
+            temperatureTimeArr.append(df['Minute'][i])
+        
 
 if __name__=="__main__":
     #findt0t2t3()
-    findtempcuttoff()
+   # findtempcuttoff()
+    mfactor(440,1080)
