@@ -91,8 +91,6 @@ def mfactor(t0,t3):
                 print(temptime_reldiff)
                 temperatureArr.clear()
                 temperatureTimeArr.clear()
-                
-                
             day += 1
         else:
             temperatureArr.append(df['Average of Temperature'][i])
