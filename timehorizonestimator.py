@@ -88,13 +88,13 @@ def mfactor(t0,t3):
                 #relative time difference
                 calculated_m =  (tempmaxtime - t0)/(t3-t0)
                 temptime_reldiff  = (abs(calculated_m - m) / ((calculated_m + m) /2))*100
-                print(temptime_reldiff)
+                print(calculated_m)
                 temperatureArr.clear()
                 temperatureTimeArr.clear()
             day += 1
-        else:
-            temperatureArr.append(df['Average of Temperature'][i])
-            temperatureTimeArr.append(df['Minute'][i])
+
+        temperatureArr.append(df['Average of Temperature'][i])
+        temperatureTimeArr.append(df['Minute'][i])
         
 
 if __name__=="__main__":
