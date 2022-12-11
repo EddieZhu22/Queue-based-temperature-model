@@ -3,7 +3,7 @@ import pandas as pd
 
 
 # making dataframe 
-df = pd.read_csv("datasets/data3.csv") 
+#df = pd.read_csv("datasets/data3.csv") 
 
 
 def findt0t2t3(array, cuttoff):
@@ -21,6 +21,7 @@ def findt0t2t3(array, cuttoff):
     
     return t0, t3
     
+''' 
 def mfactor(t0,t3): 
     # compare maximum queue (max temperature) with the theoretical m value 2/3. 
     # Finds both percent difference and absoulute difference between the t2 and m value
@@ -57,4 +58,4 @@ def mfactor(t0,t3):
 
         temperatureArr.append(df['Average of Temperature'][i])
         temperatureTimeArr.append(df['Minute'][i])
-        
+'''
