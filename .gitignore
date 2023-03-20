@@ -1,0 +1,42 @@
+# Ignore node_modules directory
+node_modules/
+
+# Ignore any generated files
+build/
+dist/
+
+# Ignore log files
+*.log
+
+# Ignore temporary files
+*.tmp
+*.temp
+
+# Ignore database files
+*.sqlite
+*.db
+
+# Ignore operating system files
+.DS_Store
+Thumbs.db
+
+# Ignore Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Ignore IDE files and directories
+.idea/
+.vscode/
+
+# Ignore user-specific files
+*.swp
+.DS_Store
+*.DS_Store
+
+# Ignore data directories
+Datasets/
+ExportedData/
+RawData/
+TestCase/
+# Ignore cache
+_Scripts/cache
+_Scripts/__pycache__
