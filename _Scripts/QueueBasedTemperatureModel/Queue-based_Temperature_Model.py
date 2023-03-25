@@ -1,3 +1,4 @@
+# Import required packages
 import matplotlib.pyplot as plt
 from scipy import stats
 from scipy.optimize import curve_fit
@@ -9,26 +10,23 @@ import time
 import multiprocessing as mp
 from sklearn.linear_model import LinearRegression
 
+# Add a directory to the system path
 sys.path.append('/_Scripts')
 
+# Define a constant variable
 MIN_IN_YR = 525600
 
-# convert to dataframe
+# Create an empty list to hold data
 df = []
 
-
-# Initialize the input variables.
+# Initialize input variables
 g_num_years = [1,0,0]
 g_start_day = 172
 g_end_day = 265
 g_cuttoff = 38.02525708
-
-
-
 dataset_num = 0
 
-
-# Initialize the statistics visualization variables.
+# Initialize statistics visualization variables
 g_Queues = []
 g_Lambdas = []
 g_Mus = []
@@ -37,10 +35,7 @@ g_Lambdas_eq = []
 g_Mus_eq = []
 eqn_queue = []
 q_obs = []
-
 g_temp_arr = []
-
-
 g_ps = []
 g_max_temp_arr = []
 g_avg_temp_arr = []
@@ -77,8 +72,8 @@ def findcutoff(data):
         year += 1
         day = 0
 
-def first_order_model(data, file, timehorizon = 10):
-    print(f'Running Model')
+def QueueBasedTemperatureModel(data, file, timehorizon = 10):
+    print('Running Model')
     day = 0
     year = 0
     temperatureDayArr = []
@@ -92,7 +87,6 @@ def first_order_model(data, file, timehorizon = 10):
                     g_avg_temp_arr.append(np.mean(temperatureDayArr))
                     t0, t3 = findt0t2t3(
                         temperatureDayArr, g_cuttoff)
-                    
                     mut0t2 = 0
                     sum_lambda = 0
                     netflow = 0
@@ -105,7 +99,6 @@ def first_order_model(data, file, timehorizon = 10):
                     if(t0 > 0 and t3 > 0): 
                         t2 = int(1/3*t0 + 2/3 * t3)
                         p = (t3-t0)/60
-                        g_ps.append(p)
                         tempdiff = max(temperatureDayArr) - g_cuttoff 
                         mti = ((max(temperatureDayArr) - g_cuttoff) / float(g_cuttoff)) * 100
                         #print(max(temperatureDayArr))
@@ -148,7 +141,7 @@ def first_order_model(data, file, timehorizon = 10):
 
                         # approximate slope
                         
-                        slope = QTM1t2(sum_netflow, GHIDayArr[int(int(t2/timehorizon))], GHIDayArr, sum_lambda, t2, t3)
+                        slope = findmuslope(sum_netflow, GHIDayArr[int(int(t2/timehorizon))], GHIDayArr, sum_lambda, t2, t3)
                         #print(slope)
                         # total lambda for t0 t2
                         for k in np.arange(int(t0/timehorizon), int(t2/timehorizon)+1):
@@ -174,29 +167,6 @@ def first_order_model(data, file, timehorizon = 10):
                         else:
                             avg_lambda.append(0)
                         
-                        
-                        # eqn 1.1 (given)
-                        
-                        '''for k in np.arange(int(t0/timehorizon), int(t3/timehorizon)+1):
-                            y = 1/3*((k - int(t0/timehorizon))**2) * (int(t3/timehorizon) - k)
-                            eqn_queue.append(y)
-                            q_obs.append((temperatureDayArr[k] - 38.02525708)*max(GHIDayArr))
-                        x = np.array(eqn_queue).reshape((-1, 1))
-                        y = np.array(q_obs)
-
-                        # Create a LinearRegression object and fit the data
-                        model = LinearRegression().fit(x, y)
-                        # Get the coefficients and intercept of the regression line
-                        coef = model.coef_[0]
-                        y3 = 0
-                        for k in np.arange(int(t0/timehorizon), int(t3/timehorizon)+1):
-                            # QUeue
-                            y1 = coef/3*((k - int(t0/timehorizon))**2) * (int(t3/timehorizon) - k)
-                            #Netflow
-                            y2 = coef*(k-int(t0/timehorizon))*(int(t2/timehorizon)-k)
-                            g_Mus_eq.append(GHIDayArr[k] - y2)
-                            y3 += y2
-                            g_Queues_eq.append(y3)'''
                             
                         mu_diff.append(
                             mu_arr[int(t2/timehorizon)] - mu_arr[0])
@@ -209,12 +179,14 @@ def first_order_model(data, file, timehorizon = 10):
                             g_Mus.append(0)
                             g_Queues_eq.append(0)
                             g_Mus_eq.append(0)
+                            
+                        # QTM Step 2.1 - Aggregate microscale results -> mesoscale
+                        g_ps.append(p)
                         D_arr.append(sum_lambda)
                         C_arr.append(max(mu_arr))
                         mu_arr1 = [i for i in mu_arr if i != 0]
                         avg_mu_arr.append(np.mean(mu_arr1))
                         muOC_arr.append(np.mean(mu_arr1)/max(mu_arr))
-                        #print((mu_arr[int(t2/timehorizon)] - mu_arr[int(t0/timehorizon)])/max(mu_arr))
                         DC_arr.append(sum_lambda/max(mu_arr))
                     else:
                         D_arr.append(0)
@@ -247,7 +219,7 @@ def first_order_model(data, file, timehorizon = 10):
         ExportData('PAQ', file)
         ExportData('QVDF', file)
         clearArrs()
-def QTM1t2(netflow, lambdat2,lambda_arr, total_lambda, t2, t3):
+def findmuslope(netflow, lambdat2,lambda_arr, total_lambda, t2, t3):
     total_mu = 0
     curr_netflow = 0
     queue = 0
@@ -294,11 +266,8 @@ def avg_of_top_n(l, n):
 def ExportData(type, file):
     if(type == 'PAQ'):
         #print('PAQ')
-        #day, Queue, Lambda, Mu
         list_of_tuples = list(zip(year_num_arr, day_num_arr,g_Queues,g_Lambdas,g_Mus))
-        df = pd.DataFrame(list_of_tuples, columns=['Year','Day', 'Simulated Queue', 'Lambda', 'Mu' ])
-        df.to_csv('ExportedData/Phoenix/2019_PAQ/PAQ ' + str(file) + '.csv')
-        #print(df)
+        pd.DataFrame(list_of_tuples, columns=['Year','Day', 'Simulated Queue', 'Lambda', 'Mu' ]).to_csv('ExportedData/Phoenix/2019_PAQ/PAQ ' + str(file) + '.csv')
     if(type == 'QVDF'):
         list_of_tuples = list(zip(g_max_temp_arr, g_avg_temp_arr,g_ps,D_arr,C_arr,DC_arr,g_mtis,avg_mu_arr,muOC_arr))    
         pd.DataFrame(list_of_tuples, columns=['Max Temperature', 'Avg Temperature', 'P', 'D', 'C','D/C','MTI','mu','mu/C']).to_csv('ExportedData/Phoenix/2019_QVDF/QVDF ' + str(file) + '.csv')
@@ -326,17 +295,12 @@ def clearArrs():
     year_num_arr.clear()
 
 def parallel_func(data,fileNames):
-    #print(fileNames)
-    return first_order_model(data,fileNames)
-    #return findcutoff(data)
-    
-    
-#first_order_model(pd.read_csv('datasets/CleanedData/2019/GriddedDataSetPoint1345621_2019.csv'), 'GriddedDataSetPoint1201095_2019.csv')
+    return QueueBasedTemperatureModel(data,fileNames)
     
 '''
 
-PARRALEL PROCESSING: REQUIRE MULTIPLE PROCESSES GOOD FOR SUPER COMPUTER USAGE
-
+PARRALEL PROCESSING: REQUIRE MULTIPLE PROCESSES, GOOD FOR SUPER COMPUTER USAGE
+Description: 12-core runtime = 591 seconds for 10,111 data points, 625,600 lines each, producing 2 csv files (1 with 13,400 lines, the other with 93)
 
 '''
 if __name__ == '__main__':
@@ -375,7 +339,7 @@ if __name__ == '__main__':
     
 '''
 
-SERIAL PROCESSING: FAST FOR EASY TO COMPUTE TASKS WHICH DO NOT REQUIRE MULTI_CORE PROCESSING
+SERIAL PROCESSING: FAST FOR EASY TO COMPUTE TASKS WHICH DO NOT REQUIRE MULTI CORE PROCESSING
 
 '''
 '''if __name__ == "__main__":
@@ -392,7 +356,7 @@ SERIAL PROCESSING: FAST FOR EASY TO COMPUTE TASKS WHICH DO NOT REQUIRE MULTI_COR
                     if(Area.iloc[int(index)]['Yes'] == 1):
                         data = (pd.read_csv('datasets/CleanedData/2019/' + str(file)))
                         findcutoff(data)
-                    #first_order_model(pd.read_csv('datasets/CleanedData/2019/' + str(file)),10)
+                    #QueueBasedTemperatureModel(pd.read_csv('datasets/CleanedData/2019/' + str(file)),10)
                     #fileNames.append('datasets/CleanedData/2019/' + str(file))
                     print(dataset_num)
                     #print('finished ' + file)
