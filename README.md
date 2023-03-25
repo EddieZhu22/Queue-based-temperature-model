@@ -20,7 +20,7 @@ Then, the model is split into 2 steps:
 **QTM STEP 2** - turn these sub-mesoscale system dynamics into something meaningful (mesoscale indicators)
 
 
-A table describing the equations & symbols used in this model are shown in these tables:
+A table describing the equations & symbols used in this model are shown below:
 ![Table](https://github.com/EddieZhu22/Queue-based-temperature-model/blob/master/Images/Picture1.png)
 
 ## Getting Started
