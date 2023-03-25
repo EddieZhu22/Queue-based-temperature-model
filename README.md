@@ -16,6 +16,7 @@ The model first takes in solar radiation & temperature data from a data source. 
 Then, the model is split into 2 steps:
 
 **QTM STEP 1** - generates general sub-mesoscale system dynamics (Queue, inflow, outflow)
+
 **QTM STEP 2** - turn these sub-mesoscale system dynamics into something meaningful (mesoscale indicators)
 
 
