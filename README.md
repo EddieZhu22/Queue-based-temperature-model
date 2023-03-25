@@ -21,7 +21,7 @@ Then, the model is split into 2 steps:
 
 
 A table describing the equations & symbols used in this model are shown in these tables:
-![GitHub Logo](https://github.com/EddieZhu22/Queue-based-temperature-model/blob/master/images/logo.png)
+![GitHub Logo](https://github.com/EddieZhu22/Queue-based-temperature-model/blob/master/images/Picture1.png)
 
 ## Getting Started
 1. Clone the repository to your local machine using git clone https://github.com/YOUR_USERNAME/REPO_NAME.git.
