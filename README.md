@@ -1,8 +1,8 @@
 # Queue-based Temperature Model
 ## Table Of Contents
 - [Description](#description)
-- [Getting Started](#getting_started)
-- [Code Structure](#code_structure)
+- [Getting Started](#getting-started)
+- [Code Structure](#code-structure)
 - [Contributing](#contributing)
 - [License](#license)
 
