@@ -10,15 +10,13 @@
 ## Description
 This is a repository is for the Queue-based Temperature Model (QTM). Based on traffic flow theory and fluid approximation queuing theory, this model highlights a simplified version of the world's atmosphere and the relationships between solar radiation and total solar energy to draw several useful inferences about the system's performance, resilience, and adaptability.
 
-
-
-
+### MODEL
 The model first takes in solar radiation & temperature data from a data source. Data for a case study done from 2022-2023 used 2019 NSRDB[1] data to attain a modelled 2-meter height and spatially homogeneous gridded dataset usable for the model. 
 
 Then, the model is split into 2 steps:
 
-*QTM STEP 1* - generates general sub-mesoscale system dynamics (Queue, inflow, outflow)
-QTM STEP 2 - turn these sub-mesoscale system dynamics into something meaningful (mesoscale indicators)
+**QTM STEP 1** - generates general sub-mesoscale system dynamics (Queue, inflow, outflow)
+**QTM STEP 2** - turn these sub-mesoscale system dynamics into something meaningful (mesoscale indicators)
 
 
 A table describing the equations & symbols used in this model are shown in these tables:
