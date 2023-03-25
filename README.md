@@ -1,7 +1,15 @@
 # Queue-based Temperature Model
+## Table Of Contents
+- [Description](#description)
+- [Getting Started](#Getting Started)
+- [Code Structure](#Code Structure)
+- [Contributing](#contributing)
+- [License](#license)
+
 
 ## Description
 This is a repository to examine different temperature and solar radiation patterns across different regions. Based on traffic flow theory and fluid approximation queuing theory, this model highlights a simplified version of the world's atmosphere and the relationships between solar radiation and total solar energy to draw several useful inferences about the system's performance, resilience, and adaptability.
+
 
 ## Getting Started
 1. Clone the repository to your local machine using git clone https://github.com/YOUR_USERNAME/REPO_NAME.git.
