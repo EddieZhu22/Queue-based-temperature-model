@@ -43,11 +43,11 @@ STEP 1.3: Calculating µ(t) using solar radiation data as input.
 STEP 1.4: Computing the area between inflow λ(t) and outflow µ(t) to find the Queue.
 
 #### Figures:
-![Inflowoutflow1](https://user-images.githubusercontent.com/51139973/228727230-d6f6113c-c5b5-4249-b146-644e49f28514.jpg)
+![Slide3](https://user-images.githubusercontent.com/51139973/228727478-ef015823-2987-4d51-a5d4-b7ff793f6451.PNG)
 
-![Netflow](https://user-images.githubusercontent.com/51139973/228727238-380a2b68-ae99-4504-8e0b-2cfcc1e54851.jpg)
+![Slide2](https://user-images.githubusercontent.com/51139973/228727493-60ca5e82-a2b3-46c6-b8b2-5a4ea57502d9.PNG)
 
-![queue](https://user-images.githubusercontent.com/51139973/228727276-669bd5e4-9011-4479-b99c-f159d3d35880.jpg)
+![Slide4](https://user-images.githubusercontent.com/51139973/228727503-bf65bb77-7b9e-4f72-9255-ff46be456696.PNG)
 
 ## Getting Started
 1. Clone the repository to your local machine using git clone https://github.com/YOUR_USERNAME/REPO_NAME.git.
