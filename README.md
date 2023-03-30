@@ -76,8 +76,25 @@ The code is split up into folders: Data Collection, QueueBasedTemperatureModel, 
 
 ### Data Collection
 
-color_code = "#FF5733"
-print("The color code is:", color_code)
+```python
+def findcutoff(data):
+    print(f'CuttoffTemp')
+    day = 0
+    year = 0
+    temperatureDayArr = []
+    # Loop through the data, grouping it into days.
+    for i in range(1):
+        for i in np.arange(((g_start_day * 144) - 144) + year * MIN_IN_YR/10, (g_end_day * 144)+1+ year * MIN_IN_YR/10):
+            if (data['Minute'][i] % 1440 == 0):
+                if (day > 0):
+                    g_temp_arr.append(np.min(temperatureDayArr))
+                temperatureDayArr.clear()
+                day += 1
+            temperatureDayArr.append(float(data['Temperature'][i]))
+            #print(temperatureDayArr)
+        year += 1
+        day = 0
+```
 ### QueueBasedTemperatureModel
 ### Spatial Regression
 
