@@ -34,7 +34,7 @@ In the second step, using the dynamics present in each day and location, several
 
 #### EQUATIONS: ![image](https://user-images.githubusercontent.com/51139973/228726931-c1b58771-0ab1-4fae-a8c5-4ba51be840c5.png)
 
-#### STEPS: ![image](https://user-images.githubusercontent.com/51139973/228726931-c1b58771-0ab1-4fae-a8c5-4ba51be840c5.png)
+#### STEPS: 
 INPUT: 10 minute surface solar radiation & 2-meter height air temperature of the
 summer (93 days)
 STEP 1.1: Determining the cutoff temperature. The cutoff temperature was set to be the top 2.5% of daily mean summertime temperatures, to prune out non extreme heat days. This resulted in a cutoff temperature of 38.02 °C. Then, the boundary conditions t0 and t3 were determined by finding the closest times to the cutoff temperature the Disruption and Recovery phases.
@@ -43,11 +43,11 @@ STEP 1.3: Calculating µ(t) using solar radiation data as input.
 STEP 1.4: Computing the area between inflow λ(t) and outflow µ(t) to find the Queue.
 
 #### Figures:
-![Inflowoutflow1](https://user-images.githubusercontent.com/51139973/228727230-d6f6113c-c5b5-4249-b146-644e49f28514.png)
+![Inflowoutflow1](https://user-images.githubusercontent.com/51139973/228727230-d6f6113c-c5b5-4249-b146-644e49f28514.jpg)
 
-![Netflow](https://user-images.githubusercontent.com/51139973/228727238-380a2b68-ae99-4504-8e0b-2cfcc1e54851.png)
+![Netflow](https://user-images.githubusercontent.com/51139973/228727238-380a2b68-ae99-4504-8e0b-2cfcc1e54851.jpg)
 
-![queue](https://user-images.githubusercontent.com/51139973/228727276-669bd5e4-9011-4479-b99c-f159d3d35880.png)
+![queue](https://user-images.githubusercontent.com/51139973/228727276-669bd5e4-9011-4479-b99c-f159d3d35880.jpg)
 
 ## Getting Started
 1. Clone the repository to your local machine using git clone https://github.com/YOUR_USERNAME/REPO_NAME.git.
