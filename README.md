@@ -75,7 +75,7 @@ The code is split up into folders: Data Collection, QueueBasedTemperatureModel, 
 
 
 ### Data Collection
-By default, data is gathered from the National Solar Radiation Database. The code below describes the basic process of doing so. First, enter an API key, email and specifications. Then, the function will take care of the rest by downloading your desired points.
+By default, data is gathered from the National Solar Radiation Database. The code below describes the basic process of doing so. First, enter an API key, email and specifications. Then, the function will take care of the rest by downloading your desired points. Change the desired years depending on the dataset, although the current specifications, only 2019, 2020, and 2021 are available.
 ```python
 def main():
     global input_data 
@@ -87,7 +87,7 @@ def main():
         'api_key': API_KEY,
         'email': EMAIL,
     }
-    for name in ['2020','2021']:
+    for name in ['2019','2020','2021']:
         print(f"Processing name: {name}")
         global last_index
 
