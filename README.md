@@ -65,8 +65,10 @@ The following are images of the mesoscale results. Interactive results can be ac
 ## Getting Started
 1. Clone the repository to your local machine using git clone https://github.com/YOUR_USERNAME/REPO_NAME.git.
 2. Navigate to the repository directory using cd REPO_NAME.
-3. Install the necessary dependencies using pip install -r requirements.txt.
-4. Run the code in Queue-based_Temperature_Model.py
+3. Install the necessary dependencies using pip install -r requirements.txt. \
+4. Add a datasets folder where you keep a path containing 525600 lines with 3 columns: Minute, Temperature, and Solar Radiation. An example dataset is provided for 1 location. \
+5. Run the code in Queue-based_Temperature_Model.py, choose either parralel or serial depending on your system preferences.
+6. Run the code in QTM_Aggregate.py to get aggregated average sub-mesoscale results.
 
 ## Code Structure
 The code is split up into folders: Data Collection, QueueBasedTemperatureModel, and spatial regression.
