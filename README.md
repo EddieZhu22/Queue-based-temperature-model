@@ -164,8 +164,9 @@ plt.show()
 
 Spatial Regression was mostly handled in jupyter notebooks.
 Enter the Overview.csv created by the QTM, to first create grids based on the latitude and longitude of the point as the centroid:
+```python
 latlondata = pd.read_csv('../ExportedData/Overview1.csv')
-```
+
 df = gpd.GeoDataFrame(columns=['num','geometry'])
 
 # Create grids
