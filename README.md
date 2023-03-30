@@ -222,7 +222,7 @@ The first script, CreatePolygons.ipynb creates an overlapping grid of land cover
 Then, in DataVisualization.ipynb, data visualization inclduing regression coefficients were calculated.
 
 ## Acknowledgements
-Special thanks to Dr. Zhou & the ASU Transportation AI department for providing continuous support on this project. I express gratitude towards Dr. Zhi Hua Wang and Dr. Gorgescu for providing feedback and giving very professional and useful tips.
+Special thanks to Dr. Xuesong Zhou for providing continuous support on this project. Thank you to Dr. Zhi Hua Wang and Dr. Gorgescu for providing feedback and giving very professional and useful tips.
 ## References
 [1] NSRDB https://nsrdb.nrel.gov/ \
 [2] Newell, C. (2013). Applications of queueing theory (Vol. 4). Springer Science & Business Media. \
