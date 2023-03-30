@@ -196,6 +196,24 @@ def ExportData(type, file):
         list_of_tuples = list(zip(g_max_temp_arr, g_avg_temp_arr,g_ps,D_arr,C_arr,DC_arr,g_mtis,avg_mu_arr,muOC_arr))    
         pd.DataFrame(list_of_tuples, columns=['Max Temperature', 'Avg Temperature', 'P', 'D', 'C','D/C','MTI','mu','mu/C']).to_csv('PATH/TO/FOLDER/QVDF ' + str(file) + '.csv')
 ```
+Lastly, to aggregate the results, QTM_Aggregate.py will take the average of all the results and store it in a csv called Overview.csv.
+```python
+def averages(dataframe):
+    dataframe = dataframe.replace(0, np.nan)
+
+    # remove all rows with NaN values
+    dataframe = dataframe.dropna()
+    avg_MaxTemp.append(dataframe["Max Temperature"].mean())
+    avg_AvgTemp.append(dataframe["Avg Temperature"].mean())
+    avg_p.append(dataframe["P"].mean())
+    avg_d.append(dataframe["D"].mean())
+    c.append(max(df['C']))
+    avg_dc.append(dataframe["D/C"].mean())
+    avg_mti.append(dataframe["MTI"].mean())
+    avg_mu.append(dataframe['Mu Equation'].mean())
+    avg_dmu.append((dataframe["D"]/dataframe['Mu Equation']).mean())
+    avg_muc.append(dataframe["mu/C"].mean())
+```
 
 ### Spatial Regression
 
