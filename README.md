@@ -39,7 +39,7 @@ INPUT: 10 minute surface solar radiation & 2-meter height air temperature of the
 STEP 1.1: Determining the cutoff temperature. The cutoff temperature was set to be the top 2.5% of daily mean summertime temperatures, to prune out non extreme heat days. This resulted in a cutoff temperature of 38.02 °C. Then, the boundary conditions t0 and t3 were determined by finding the closest times to the cutoff temperature the Disruption and Recovery phases.
 STEP 1.2: Finding t2 at max Q(t). \
 STEP 1.3: Calculating µ(t) using solar radiation data as input. \
-STEP 1.4: Computing the area between inflow λ(t) and outflow µ(t) to find the Queue. \
+STEP 1.4: Computing the area between inflow λ(t) and outflow µ(t) to find the Queue. 
 
 #### Figures:
 ![Slide3](https://user-images.githubusercontent.com/51139973/228727478-ef015823-2987-4d51-a5d4-b7ff793f6451.PNG)
@@ -55,7 +55,8 @@ Based on the outputs from QTM Step 1, several system indicators were produced. T
 ![image](https://user-images.githubusercontent.com/51139973/228727782-e5027179-c81b-4e41-9866-2a223467edbe.png)
 
 #### Figures:
-
+![image](https://user-images.githubusercontent.com/51139973/228728102-9e99fd14-4918-4098-b551-35292e4b4d05.png)
+(openstreetmap.org for providing background)
 
 ## Getting Started
 1. Clone the repository to your local machine using git clone https://github.com/YOUR_USERNAME/REPO_NAME.git.
@@ -70,8 +71,8 @@ The code is split up into folders: Data Collection, QueueBasedTemperatureModel, 
 Special thanks to Dr. Zhou & the ASU Transportation AI department for providing continuous support on this project. Thanks to Dr. Zhi Hua Wang and Dr. Gorgescu for providing feedback and giving very professional and useful tips.
 ## References
 [1] NSRDB https://nsrdb.nrel.gov/
-[1] Newell, C. (2013). Applications of queueing theory (Vol. 4). Springer Science & Business Media.
-[2] Zhou, X. (2022). A meso-to-macro cross-resolution performance approach for connecting polynomial arrival queue            
+[2] Newell, C. (2013). Applications of queueing theory (Vol. 4). Springer Science & Business Media.
+[3] Zhou, X. (2022). A meso-to-macro cross-resolution performance approach for connecting polynomial arrival queue            
            model to volume-delay function with inflow demand-to-capacity ratio. Multimodal Transportation, 1(2). 
            https://doi.org/10.1016/j.multra.2022.100017 
 
