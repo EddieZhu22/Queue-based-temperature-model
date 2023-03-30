@@ -30,8 +30,7 @@ dataset_num = 0
 g_Queues = []
 g_Lambdas = []
 g_Mus = []
-g_Queues_eq = []
-g_Lambdas_eq = []
+
 g_Mus_eq = []
 eqn_queue = []
 q_obs = []
@@ -85,7 +84,7 @@ def QueueBasedTemperatureModel(data, file, timehorizon = 10):
                 if (day > 0):
                     g_max_temp_arr.append(max(temperatureDayArr))
                     g_avg_temp_arr.append(np.mean(temperatureDayArr))
-                    t0, t3 = findt0t2t3(
+                    t0, t3 = findt0t3(
                         temperatureDayArr, g_cuttoff)
                     mut0t2 = 0
                     sum_lambda = 0
@@ -114,7 +113,6 @@ def QueueBasedTemperatureModel(data, file, timehorizon = 10):
                             g_Queues.append(0)
                             g_Lambdas.append(0)
                             g_Mus.append(0)
-                            g_Queues_eq.append(0)
                             g_Mus_eq.append(0)
                             
                         # t0 - t2
@@ -177,7 +175,6 @@ def QueueBasedTemperatureModel(data, file, timehorizon = 10):
                             g_Queues.append(0)
                             g_Lambdas.append(0)
                             g_Mus.append(0)
-                            g_Queues_eq.append(0)
                             g_Mus_eq.append(0)
                             
                         # QTM Step 2.1 - Aggregate microscale results -> mesoscale
@@ -197,7 +194,6 @@ def QueueBasedTemperatureModel(data, file, timehorizon = 10):
                         g_ps.append(0)
                         g_mtis.append(0)
                         for k in np.arange(0, 144):
-                            g_Queues_eq.append(0)
                             g_Mus_eq.append(0)
                             mu_arr.append(0)
                             day_num_arr.append(day)
@@ -238,8 +234,8 @@ def findmuslope(netflow, lambdat2,lambda_arr, total_lambda, t2, t3):
 
     return sl
 
-
-def findt0t2t3(array, cuttoff):
+# find t0, t3 for every day
+def findt0t3(array, cuttoff):
     t0dist = []
     t3dist = []
     if(max(array) <= cuttoff):
@@ -254,15 +250,18 @@ def findt0t2t3(array, cuttoff):
 
     return t0,t3
 
-def sensitivity_analysis(maxtemp, cutoff):
+# determine magnitude of temperature increase
+def mag_temp_inc(maxtemp, cutoff):
     # mti = magnitude of temperature increase
     tempdiff = maxtemp - cutoff 
     mti = (maxtemp - cutoff) / maxtemp
     #print(mti)
     tempdiff_arr.append(tempdiff)
     g_mtis.append(mti)
-def avg_of_top_n(l, n):
-    return sum(sorted(l)[-n:]) / n
+
+# Export data to 2 csvs
+# 1) Sub-mesoscale
+# 2) Mesoscale
 def ExportData(type, file):
     if(type == 'PAQ'):
         #print('PAQ')
@@ -277,8 +276,6 @@ def clearArrs():
     g_Queues.clear()
     g_Lambdas.clear()
     g_Mus.clear()
-    g_Queues_eq.clear()
-    g_Lambdas_eq.clear()
     g_Mus_eq.clear()
     g_ps.clear()
     g_avg_temp_arr.clear()
@@ -324,10 +321,8 @@ if __name__ == '__main__':
                             print('finished ' + file)
                             dataset_num += 1
                     k+=1
-        #print(tuple(data))
         pool = mp.Pool(processes=13)
         pool.starmap(parallel_func, zip(data, fileNames))
-        #pool.starmap(parallel_func, data)
 
         pool.close()
         pool.join()

@@ -8,8 +8,13 @@ from scipy.stats import gaussian_kde
 #https://novagateway.org/Dashboard/Overview
 #https://www.sciencedirect.com/science/article/pii/S0924271618301217
 
+
+
+# Plot Estimated and Observed P based on a Kernel Density Function.
+
 df = pd.read_csv('ExportedData/P_Model_Validation.csv')
-x,y = df['P'], df['Est P']
+print(df.columns)
+x,y = df['D/C'], df['Est P']
 # Calculate the point density
 xy = np.vstack([x,y])
 n_samples = len(xy)
@@ -47,6 +52,8 @@ cbar = plt.colorbar(sc, alpha = 1)
 cbar.set_label('Density')
 plt.show()
 fig.savefig('PvsEstP.png')'''
+def power_function(x, a, b):
+    return a * x ** b
 
 
 def density_scatter( x , y, ax = None, sort = True, bins = 20, **kwargs )   :
@@ -70,29 +77,31 @@ def density_scatter( x , y, ax = None, sort = True, bins = 20, **kwargs )   :
     b, m = 0.0449,0.9967
     ax.set_ylim(ymin=0)
     ax.set_xlim(xmin=0)
-    plt.title("Estimated Congestion Duration 'P' vs Observed 'P'")
-    plt.xlabel('Observed P (Hours)')
-    plt.ylabel('Estimated P (hours)')
+    plt.title("Elasticity of P vs D/C")
+    plt.ylabel('P (Hours)')
+    plt.xlabel('D/C ratio')
 
-    ax.annotate("R-Squared = {:.3f}".format(0.9043), (1, 12))
-    ax.annotate("MAPE = {:.3f}%".format(11.29), (1, 11.5))
+    ax.annotate("fd = {:.3f}".format(0.0665), (1, 12))
+    ax.annotate("n = {:.3f}".format(1.3403), (1, 11.5))
+    x1 = np.linspace(0, 100, 1000)
 
-    # plot y = m*x + b
-    plt.axline(xy1=(0, b), slope=m, label=f'$y = {m:.1f}x {b:+.1f}$', linestyle='dotted', c = 'red', alpha = 0.7)
+    y1 = power_function(x1, 0.0665, 1.3403)
+    plt.plot(x1, y1,linestyle='dotted', c = 'red', alpha = 0.7)
+   # plt.axline(xy1=(0, b), slope=m, label=f'$y = {m:.1f}x {b:+.1f}$', linestyle='dotted', c = 'red', alpha = 0.7)
    # norm = Normalize(vmin = np.min(z), vmax = np.max(z))
     cbar = plt.colorbar(sc, alpha = 1)
     cbar.set_label('Density')
 
  
-    fig.savefig('PvsEstP.png')
+    fig.savefig('PvsDC.png')
     return ax
 
-'''
+
 if "__main__" == __name__ :
 
 
-    density_scatter( df['P'], df['Est P'], bins = [100,100], alpha = 0.5,s=10,cmap="jet")
+    density_scatter( df['D/C'], df['P'], bins = [100,100], alpha = 0.5,s=10,cmap="afmhot")
     plt.show()
     
-    '''
+
 

@@ -30,13 +30,17 @@ FileNames = []
 
 for i in range(len(df['Lat'])):
     found = False
+    
+    #define the specific latitude and longitude to check
     point_to_check = Point(df['Long'][i],df['Lat'][i])
-    #plt.scatter(point_to_check.x, point_to_check.y, c='red')
 
+    # if data point is within the speicified boundaries, set found to true
     for k in range(len(boundaries.geometry)):
         if point_to_check.within(boundaries.geometry[k]):
            found = True
     print(i)
+    
+    # Append to array to see if data point is within boundary
     if(found == False):
         in_area.append(0)
         #print("Lat")
@@ -45,7 +49,8 @@ for i in range(len(df['Lat'])):
         in_area.append(1)
     FileNames.append(df['FileName'][i])
 list_of_tuples = list(zip(FileNames, in_area))
-        
-pd.DataFrame(list_of_tuples,columns=['File Name','Yes']).to_csv('Area.csv')
+
+# Create a dataframe of final results  
+pd.DataFrame(list_of_tuples,columns=['File Name','In Study Area']).to_csv('Area.csv')
 plt.show()
 
