@@ -75,26 +75,84 @@ The code is split up into folders: Data Collection, QueueBasedTemperatureModel, 
 
 
 ### Data Collection
-
+By default, data is gathered from the National Solar Radiation Database. The code below describes the basic process of doing so. First, enter an API key, email and specifications. Then, the function will take care of the rest by downloading your desired points.
 ```python
-def findcutoff(data):
-    print(f'CuttoffTemp')
-    day = 0
-    year = 0
-    temperatureDayArr = []
-    # Loop through the data, grouping it into days.
-    for i in range(1):
-        for i in np.arange(((g_start_day * 144) - 144) + year * MIN_IN_YR/10, (g_end_day * 144)+1+ year * MIN_IN_YR/10):
-            if (data['Minute'][i] % 1440 == 0):
-                if (day > 0):
-                    g_temp_arr.append(np.min(temperatureDayArr))
-                temperatureDayArr.clear()
-                day += 1
-            temperatureDayArr.append(float(data['Temperature'][i]))
-            #print(temperatureDayArr)
-        year += 1
-        day = 0
+def main():
+    global input_data 
+    input_data = {
+        'attributes': 'ghi,air_temperature',
+        'interval': '10',
+        'to_utc': 'false',
+        
+        'api_key': API_KEY,
+        'email': EMAIL,
+    }
+    for name in ['2020','2021']:
+        print(f"Processing name: {name}")
+        global last_index
+
+        for i in range(last_index, len(points)):
+            input_data['names'] = [name]
+            input_data['location_ids'] = points[i]
+            
+            print('Making request for point: ' + str(i+1) + ' out of ' + str(len(points)))
+                
+            if '.csv' in BASE_URL:
+                global headers
+                headers = {
+                    'x-api-key': API_KEY,
+                }
+                connected = False
+                while(connected == False):
+                    response = requests.get(BASE_URL, input_data, headers=headers)
+
+                    if response.status_code == 200:
+                        data = response.content
+                        connected = True
+                        #print(data)
+                        # Process data as needed
+                    else:
+                        print("Error:", response.content)
+                        time.sleep(1)
+
+                data = pd.read_csv(StringIO(data.decode('utf-8')), sep=",", header=None, low_memory=False,error_bad_lines=False, index_col=False, dtype=object)
+
+                # Note: CSV format is only supported for single point requests
+                # Suggest that you might append to a larger data frame
+                #print(f'Response data (you should replace this print statement with your processing): {data}')
+                # You can use the following code to write it to a file
+
+                data.to_csv('RawData/GriddedDataSetPoint' + str(points[i]) + '_' + str(name) + '.csv' )
+                
+                time.sleep(1)
+
+            print(f'Processed')
+        last_index = 0
 ```
+To prune out non-study area data points, use this following code from Prune_Study_Area.py to remove data not in a specified shapefile: 
+```python
+for i in range(len(df['Lat'])):
+    found = False
+    point_to_check = Point(df['Long'][i],df['Lat'][i])
+    #plt.scatter(point_to_check.x, point_to_check.y, c='red')
+
+    for k in range(len(boundaries.geometry)):
+        if point_to_check.within(boundaries.geometry[k]):
+           found = True
+    print(i)
+    if(found == False):
+        in_area.append(0)
+        #print("Lat")
+    else:
+        plt.scatter(point_to_check.x, point_to_check.y, c='red')
+        in_area.append(1)
+    FileNames.append(df['FileName'][i])
+list_of_tuples = list(zip(FileNames, in_area))
+        
+pd.DataFrame(list_of_tuples,columns=['File Name','In Study Area']).to_csv('Area.csv')
+plt.show()
+'''
+
 ### QueueBasedTemperatureModel
 ### Spatial Regression
 
