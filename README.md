@@ -35,12 +35,11 @@ In the second step, using the dynamics present in each day and location, several
 #### EQUATIONS: ![image](https://user-images.githubusercontent.com/51139973/228726931-c1b58771-0ab1-4fae-a8c5-4ba51be840c5.png)
 
 #### STEPS: 
-INPUT: 10 minute surface solar radiation & 2-meter height air temperature of the
-summer (93 days)
+INPUT: 10 minute surface solar radiation & 2-meter height air temperature of the summer (93 days)\
 STEP 1.1: Determining the cutoff temperature. The cutoff temperature was set to be the top 2.5% of daily mean summertime temperatures, to prune out non extreme heat days. This resulted in a cutoff temperature of 38.02 °C. Then, the boundary conditions t0 and t3 were determined by finding the closest times to the cutoff temperature the Disruption and Recovery phases.
-STEP 1.2: Finding t2 at max Q(t).  
-STEP 1.3: Calculating µ(t) using solar radiation data as input.
-STEP 1.4: Computing the area between inflow λ(t) and outflow µ(t) to find the Queue.
+STEP 1.2: Finding t2 at max Q(t).\
+STEP 1.3: Calculating µ(t) using solar radiation data as input.\
+STEP 1.4: Computing the area between inflow λ(t) and outflow µ(t) to find the Queue.\
 
 #### Figures:
 ![Slide3](https://user-images.githubusercontent.com/51139973/228727478-ef015823-2987-4d51-a5d4-b7ff793f6451.PNG)
