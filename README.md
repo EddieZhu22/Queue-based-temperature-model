@@ -10,7 +10,7 @@
 ## Description
 This is a repository is for the Queue-based Temperature Model (QTM). Based on traffic flow theory and fluid approximation queuing theory, this model highlights a simplified version of the world's atmosphere and the relationships between solar radiation and total solar energy to draw several useful inferences about the system's performance, resilience, and adaptability.
 
-### MODEL
+### Model Overview
 The model first takes in solar radiation & temperature data from a data source. Data for a case study done from 2022-2023 used 2019 NSRDB[1] data to attain a modelled 2-meter height and spatially homogeneous gridded dataset usable for the model. 
 
 Then, the model is split into 2 steps:
@@ -19,11 +19,13 @@ Then, the model is split into 2 steps:
 
 **QTM STEP 2** - turn these sub-mesoscale system dynamics into something meaningful (mesoscale indicators)
 
-### ABSTRACT
-Extreme heat events have risen dramatically in the past decades. Understanding underlying interactions within the built environment has become increasingly imperative for developing measures to mitigate the impact of extreme heat. While researchers primarily use Partial Differential Equations (PDEs) to analyze extreme heat, PDE-based analysis overlooks dynamics at individual locations. The proposed Queue-based Temperature Model (QTM), on the other hand, is designed to provide a theoretically rigorous framework and closed-form solutions to capture intraday energy flow dynamics under extreme heat conditions with little computational resources. The model offers a way of using Ordinary Differential Equations based on Fluid Queuing Theory where the inflow and outflow of energy serve as the derivatives for the total energy within the system (Queue). This study used 2-meter height air temperatures and GHI of Maricopa County in 2019. After capturing the heat exchange dynamics using the QTM, the model was used to derive several closed-form expressions. The model had an 11.29% MAPE (n=419,830) when comparing estimated heat exposure duration (P) to observed values using log-transformed sensitivity analysis, suggesting that the model outputs work well for extreme heat conditions. Then, several covariates known to correlate with extreme heat were tested with Multi-Scale Geographically Weighted Regression. Normalized Difference Vegetation Index and urban land cover indicated statistically significant coefficients with model outputs. The QTM provides a reliable, efficient and economical alternative to traditional PDE models and can be applied in areas like urban planning, public policy as well as environmental education and research.
-
 A table describing the equations & symbols used in this model are shown below:
 ![Table](https://github.com/EddieZhu22/Queue-based-temperature-model/blob/master/Images/Picture1.png)
+
+Background Information: The Queue-based Temperature Model (QTM) is inspired by Newell’s fluid queueing model [2] and the Queue Volume Delay Function’s meso-macro framework [3], which offer the theoretical foundation for the model's underlying principles. The QTM consists of a two-step process. In the first step, sub-mesoscale system dynamics present within each day are obtained. In the second step, these dynamics are leveraged to make inferences on the mesoscale level. This allows for the analysis of the system at different levels of fidelity, providing valuable insights into the system's performance, resilience, and adaptability.
+Model Framework: In the first step, intraday dynamics of extreme heat are approximated. When the temperature passes through an “extreme heat” cutoff temperature, a queue of energy (Q(t)) starts forming. The queue has two critical components: an inflow and outflow denoted by λ(t) and µ(t) respectively. λ(t) is given by the incoming solar radiation (Global Horizontal Irradiance). µ(t) is the culmination of all factors that release energy out of the system. Because µ(t) is not directly observable, a linear piecewise function is instead used to approximate the behavior. The net flow at a specific time (π(t)) is given by subtracting λ(t) from µ(t). By integrating the net flow, a queue can be calculated. Boundary conditions of the model, t0 and t3, are at the start of the queue and the end of the queue respectively. 
+![image](https://user-images.githubusercontent.com/51139973/228726279-ea0f21a1-2779-4884-b26f-b61c2fe6daa1.png)
+
 
 ## Getting Started
 1. Clone the repository to your local machine using git clone https://github.com/YOUR_USERNAME/REPO_NAME.git.
@@ -34,5 +36,12 @@ A table describing the equations & symbols used in this model are shown below:
 ## Code Structure
 The code is split up into folders: Data Collection, QueueBasedTemperatureModel, and spatial regression.
 
+## Acknowledgements
+Special thanks to Dr. Zhou & the ASU Transportation AI department for providing continuous support on this project. Thanks to Dr. Zhi Hua Wang and Dr. Gorgescu for providing feedback and giving very professional and useful tips.
 ## References
 [1] NSRDB https://nsrdb.nrel.gov/
+[1] Newell, C. (2013). Applications of queueing theory (Vol. 4). Springer Science & Business Media.
+[2] Zhou, X. (2022). A meso-to-macro cross-resolution performance approach for connecting polynomial arrival queue            
+           model to volume-delay function with inflow demand-to-capacity ratio. Multimodal Transportation, 1(2). 
+           https://doi.org/10.1016/j.multra.2022.100017 
+
