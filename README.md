@@ -218,29 +218,8 @@ def averages(dataframe):
 ### Spatial Regression
 
 Spatial Regression was mostly handled in jupyter notebooks.
-Enter the Overview.csv created by the QTM, to first create grids based on the latitude and longitude of the point as the centroid:
-```python
-latlondata = pd.read_csv('../ExportedData/Overview1.csv')
-
-df = gpd.GeoDataFrame(columns=['num','geometry'])
-
-# Create grids
-for i in range(len(latlondata['Lat'])):
-    centroid_lat = latlondata.loc[i, 'Lat']
-    centroid_lon = latlondata.loc[i, 'Long']
-    bottom_left = Point(centroid_lon - 0.01, centroid_lat - 0.01)
-    bottom_right = Point(centroid_lon + 0.01, centroid_lat - 0.01)
-    top_right = Point(centroid_lon + 0.01, centroid_lat + 0.01)
-    top_left = Point(centroid_lon - 0.01, centroid_lat + 0.01)
-    #print(i)
-    # Create the grid polygon
-    grid = Polygon([bottom_left, bottom_right, top_right, top_left, bottom_left])
-    
-    df2 = pd.DataFrame({'num': [i], 'geometry': [grid]})
-
-
-    df = df.append(df2, ignore_index=True)
-```    
+The first script, CreatePolygons.ipynb creates an overlapping grid of land cover densities.
+Then, in DataVisualization.ipynb, data visualization inclduing regression coefficients were calculated.
 
 ## Acknowledgements
 Special thanks to Dr. Zhou & the ASU Transportation AI department for providing continuous support on this project. I express gratitude towards Dr. Zhi Hua Wang and Dr. Gorgescu for providing feedback and giving very professional and useful tips.
