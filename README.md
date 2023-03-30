@@ -159,6 +159,43 @@ plt.show()
 ```
 
 ### QueueBasedTemperatureModel
+There are 3 scripts, however the main one to use is Queue-based_Temperature_Model.py. Start by importing the data you want by creating a folder called Datasets. Store the data in that path. Then, run the data on the cutoff temperature method.
+```python
+def findcutoff(data):
+    print(f'CuttoffTemp')
+    day = 0
+    year = 0
+    temperatureDayArr = []
+    # Loop through the data, grouping it into days.
+    for i in range(1):
+        for i in np.arange(((g_start_day * 144) - 144) + year * MIN_IN_YR/10, (g_end_day * 144)+1+ year * MIN_IN_YR/10):
+            if (data['Minute'][i] % 1440 == 0):
+                if (day > 0):
+                    g_temp_arr.append(np.min(temperatureDayArr))
+                temperatureDayArr.clear()
+                day += 1
+            temperatureDayArr.append(float(data['Temperature'][i]))
+            #print(temperatureDayArr)
+        year += 1
+        day = 0
+```
+It takes the 93 days in the summer and finds the top **2.5%** of temperature values.
+
+Then use the 
+```python 
+def QueueBasedTemperatureModel(data, file, timehorizon = 10)
+```
+method to run the model. It should produce 2 csv files 1 for the sub-mesoscale results, and the other for the mesoscale.
+```python
+def ExportData(type, file):
+    if(type == 'PAQ'):
+        #print('PAQ')
+        list_of_tuples = list(zip(year_num_arr, day_num_arr,g_Queues,g_Lambdas,g_Mus))
+        pd.DataFrame(list_of_tuples, columns=['Year','Day', 'Simulated Queue', 'Lambda', 'Mu' ]).to_csv('PATH/TO/FOLDER/PAQ ' + str(file) + '.csv')
+    if(type == 'QVDF'):
+        list_of_tuples = list(zip(g_max_temp_arr, g_avg_temp_arr,g_ps,D_arr,C_arr,DC_arr,g_mtis,avg_mu_arr,muOC_arr))    
+        pd.DataFrame(list_of_tuples, columns=['Max Temperature', 'Avg Temperature', 'P', 'D', 'C','D/C','MTI','mu','mu/C']).to_csv('PATH/TO/FOLDER/QVDF ' + str(file) + '.csv')
+```
 
 ### Spatial Regression
 
@@ -188,7 +225,7 @@ for i in range(len(latlondata['Lat'])):
 ```    
 
 ## Acknowledgements
-Special thanks to Dr. Zhou & the ASU Transportation AI department for providing continuous support on this project. Thanks to Dr. Zhi Hua Wang and Dr. Gorgescu for providing feedback and giving very professional and useful tips.
+Special thanks to Dr. Zhou & the ASU Transportation AI department for providing continuous support on this project. I express gratitude towards Dr. Zhi Hua Wang and Dr. Gorgescu for providing feedback and giving very professional and useful tips.
 ## References
 [1] NSRDB https://nsrdb.nrel.gov/
 [2] Newell, C. (2013). Applications of queueing theory (Vol. 4). Springer Science & Business Media.
