@@ -133,13 +133,17 @@ To prune out non-study area data points, use this following code from Prune_Stud
 ```python
 for i in range(len(df['Lat'])):
     found = False
+    
+    #define the specific latitude and longitude to check
     point_to_check = Point(df['Long'][i],df['Lat'][i])
-    #plt.scatter(point_to_check.x, point_to_check.y, c='red')
 
+    # if data point is within the speicified boundaries, set found to true
     for k in range(len(boundaries.geometry)):
         if point_to_check.within(boundaries.geometry[k]):
            found = True
     print(i)
+    
+    # Append to array to see if data point is within boundary
     if(found == False):
         in_area.append(0)
         #print("Lat")
@@ -148,14 +152,39 @@ for i in range(len(df['Lat'])):
         in_area.append(1)
     FileNames.append(df['FileName'][i])
 list_of_tuples = list(zip(FileNames, in_area))
-        
+
+# Create a dataframe of final results  
 pd.DataFrame(list_of_tuples,columns=['File Name','In Study Area']).to_csv('Area.csv')
 plt.show()
-'''
+```
 
 ### QueueBasedTemperatureModel
+
 ### Spatial Regression
 
+Spatial Regression was mostly handled in jupyter notebooks.
+Enter the Overview.csv created by the QTM, to first create grids based on the latitude and longitude of the point as the centroid:
+latlondata = pd.read_csv('../ExportedData/Overview1.csv')
+```
+df = gpd.GeoDataFrame(columns=['num','geometry'])
+
+# Create grids
+for i in range(len(latlondata['Lat'])):
+    centroid_lat = latlondata.loc[i, 'Lat']
+    centroid_lon = latlondata.loc[i, 'Long']
+    bottom_left = Point(centroid_lon - 0.01, centroid_lat - 0.01)
+    bottom_right = Point(centroid_lon + 0.01, centroid_lat - 0.01)
+    top_right = Point(centroid_lon + 0.01, centroid_lat + 0.01)
+    top_left = Point(centroid_lon - 0.01, centroid_lat + 0.01)
+    #print(i)
+    # Create the grid polygon
+    grid = Polygon([bottom_left, bottom_right, top_right, top_left, bottom_left])
+    
+    df2 = pd.DataFrame({'num': [i], 'geometry': [grid]})
+
+
+    df = df.append(df2, ignore_index=True)
+```    
 
 ## Acknowledgements
 Special thanks to Dr. Zhou & the ASU Transportation AI department for providing continuous support on this project. Thanks to Dr. Zhi Hua Wang and Dr. Gorgescu for providing feedback and giving very professional and useful tips.
