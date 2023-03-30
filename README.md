@@ -54,9 +54,13 @@ Based on the outputs from QTM Step 1, several system indicators were produced. T
 
 ![image](https://user-images.githubusercontent.com/51139973/228727782-e5027179-c81b-4e41-9866-2a223467edbe.png)
 
-#### Figures:
-![image](https://user-images.githubusercontent.com/51139973/228728102-9e99fd14-4918-4098-b551-35292e4b4d05.png)
-(openstreetmap.org for providing background)
+#### Images:
+The following are images of the mesoscale results. Interactive results can be accessed here: https://github.com/EddieZhu22/Queue-based-temperature-model/blob/master/Figures/map3.html
+
+![image](https://user-images.githubusercontent.com/51139973/228728102-9e99fd14-4918-4098-b551-35292e4b4d05.png) \
+(openstreetmap.org for providing background) \
+![image](https://user-images.githubusercontent.com/51139973/228728432-34c1f15b-da77-47ed-b3e1-446d1f8040fe.png)
+
 
 ## Getting Started
 1. Clone the repository to your local machine using git clone https://github.com/YOUR_USERNAME/REPO_NAME.git.
