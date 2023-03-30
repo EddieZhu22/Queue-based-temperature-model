@@ -247,7 +247,7 @@ Special thanks to Dr. Zhou & the ASU Transportation AI department for providing 
 ## References
 [1] NSRDB https://nsrdb.nrel.gov/ \
 [2] Newell, C. (2013). Applications of queueing theory (Vol. 4). Springer Science & Business Media. \
-[3] Zhou, X. (2022). A meso-to-macro cross-resolution performance approach for connecting polynomial arrival queue \            
+[3] Zhou, X. (2022). A meso-to-macro cross-resolution performance approach for connecting polynomial arrival queue            
            model to volume-delay function with inflow demand-to-capacity ratio. Multimodal Transportation, 1(2). \
-           https://doi.org/10.1016/j.multra.2022.100017 \
+           https://doi.org/10.1016/j.multra.2022.100017 
 
