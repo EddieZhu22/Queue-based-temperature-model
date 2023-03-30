@@ -52,10 +52,11 @@ STEP 1.4: Computing the area between inflow λ(t) and outflow µ(t) to find the 
 ### QTM STEP 2
 INPUT: Queue, inflow, and outflow of the day (Q(t), λ(t), and µ(t)).
 Based on the outputs from QTM Step 1, several system indicators were produced. The indicators and their formulas are listed below:
-P: 𝑡_3−𝑡_0- Heat Exposure Duration   
-D: ∫2_𝑡0^𝑡3▒〖𝜆(𝜏)〗 𝑑𝜏 - Total Inflow Demand   
-C: max(µ(t)) - Total System Capacity
-Finally, since the outputs were created every day (93 days), the mean values of the indicators for the summer were calculated by averaging the daily results.
+
+![image](https://user-images.githubusercontent.com/51139973/228727782-e5027179-c81b-4e41-9866-2a223467edbe.png)
+
+#### Figures:
+
 
 ## Getting Started
 1. Clone the repository to your local machine using git clone https://github.com/YOUR_USERNAME/REPO_NAME.git.
